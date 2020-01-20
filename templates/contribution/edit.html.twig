@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Contribution{% endblock %}
+
+{% block body %}
+    <h1>Edit Contribution</h1>
+
+    {{ include('contribution/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('contribution_index') }}">back to list</a>
+
+    {{ include('contribution/_delete_form.html.twig') }}
+{% endblock %}

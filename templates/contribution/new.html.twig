@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contribution{% endblock %}
+
+{% block body %}
+    <h1>Create new Contribution</h1>
+
+    {{ include('contribution/_form.html.twig') }}
+
+    <a href="{{ path('contribution_index') }}">back to list</a>
+{% endblock %}
