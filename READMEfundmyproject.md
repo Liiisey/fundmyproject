@@ -4,7 +4,6 @@
 
 ```shell
 composer create-project symfony/website-skeleton fundmyproject
-npm init
 npm install
 composer require symfony/webpack-encore-bundle
 npm install
