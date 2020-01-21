@@ -12,9 +12,7 @@ class ContributionFixtures extends Fixture
     {
         $contribution = new Contribution();
         $contribution->setAmount(1000.00);
-        $contribution->addProject($this->getReference("projectId"));
-        $contribution->addUser($this->getReference("userId"));
-
+        $this->addReference("amount", $contribution); //implements contribution
         $manager->persist($contribution);
 
         $manager->flush();

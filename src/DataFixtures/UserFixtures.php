@@ -27,8 +27,17 @@ class UserFixtures extends Fixture
         $admin->setEmail("john.doe@gmail.com");
         $admin->setPassword($this->encoder->encodePassword($admin, "rootroot"));
         $admin->setRoles(["ROLE_ADMIN"]);
-        $this->addReference("userId", $admin);
+        $this->setReference("john", $admin); //implements userId
         $manager->persist($admin);
+
+        $regina = new User();
+        $regina->setFirstname("Regina");
+        $regina->setLastname("Fallange");
+        $regina->setEmail("regina.fallange@gmail.com");
+        $regina->setPassword($this->encoder->encodePassword($admin, "friends"));
+        $regina->setRoles(["ROLE_USER"]);
+        $this->setReference("regina", $regina); //implements userId
+        $manager->persist($regina);
 
         $manager->flush();
     }

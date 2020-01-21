@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Project;
-use App\Entity\Contribution;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,8 +17,10 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $goodgirl->setExcerpt("Ce film parle de ...");
         $goodgirl->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $goodgirl->setGoal(5500.00);
+        $goodgirl->prePersist();
         $goodgirl->addCategory($this->getReference("category-film")); //implements category
-        $this->addReference("projectId", $goodgirl);
+        $goodgirl->addContribution($this->getReference("amount")); //implements contribution
+        $goodgirl->setUser($this->getReference("regina"));
         $manager->persist($goodgirl);
 
         $lesyeuxdanslebus = new Project();
@@ -30,8 +31,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $lesyeuxdanslebus->setGoal(5500.00);
         $lesyeuxdanslebus->addCategory($this->getReference("category-film")); //implements category
         $lesyeuxdanslebus->addCategory($this->getReference("category-sport")); //implements category
-        $lesyeuxdanslebus->addContribution($this->getReference("contribution-project"));
-        $this->addReference("projectId", $lesyeuxdanslebus);
+        $lesyeuxdanslebus->addContribution($this->getReference("amount")); //implements contribution
+        $lesyeuxdanslebus->setUser($this->getReference("regina"));
         $manager->persist($lesyeuxdanslebus);
 
         $dabado = new Project();
@@ -41,8 +42,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $dabado->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $dabado->setGoal(5500.00);
         $dabado->addCategory($this->getReference("category-jeux")); //implements category
-        $dabado->addContribution($this->getReference("contribution-project"));
-        $this->addReference("projectId", $dabado);
+        $dabado->addContribution($this->getReference("amount")); //implements contribution
+        $dabado->setUser($this->getReference("regina"));
         $manager->persist($dabado);
 
         $doosh = new Project();
@@ -53,13 +54,14 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $doosh->setGoal(5500.00);
         $doosh->addCategory($this->getReference("category-film")); //implements category
         $doosh->addCategory($this->getReference("category-musique")); //implements category
-        $doosh->addContribution($this->getReference("contribution-project"));
-        $this->addReference("projectId", $doosh);
+        $doosh->addContribution($this->getReference("amount")); //implements contribution
+        $doosh->setUser($this->getReference("regina"));
         $manager->persist($doosh);
 
 
         $manager->flush();
     }
+
 
     /**
      * @inheritDoc
@@ -68,7 +70,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
-            ContributionFixtures::class
+            ContributionFixtures::class,
+            UserFixtures::class
         ];
     }
 }
