@@ -71,4 +71,9 @@ class Contribution
 
         return $this;
     }
+
+    public function addProject(object $getReference)
+    {
+
+    }
 }
