@@ -1,0 +1,5 @@
+<div class="categories">
+    {% for category in categories  %}
+        <a href="{{ category.index.html.twig }}"><i class="fa {{ category.name }}"></i></a>
+    {% endfor %}
+</div>

@@ -12,8 +12,8 @@ class UserFixtures extends Fixture
     private $encoder;
 
     /**
-     * UserFixtures constructor.
-     */
+ * UserFixtures constructor.
+ */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
         $regina->setFirstname("Regina");
         $regina->setLastname("Fallange");
         $regina->setEmail("regina.fallange@gmail.com");
-        $regina->setPassword($this->encoder->encodePassword($admin, "friends"));
+        $regina->setPassword($this->encoder->encodePassword($regina, "friends"));
         $regina->setRoles(["ROLE_USER"]);
         $this->setReference("regina", $regina); //implements userId
         $manager->persist($regina);
