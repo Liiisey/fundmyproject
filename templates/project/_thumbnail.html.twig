@@ -1,0 +1,12 @@
+<article class="project-thumbnail">
+        <img src="{{ asset('uploads/' ~ project.image) }}" alt="{{ project.name }}">
+        <div class="project-details">
+            <h4>{{ project.name }}</h4>
+            <p class="project-categories">
+                {% for category in project.categories  %}
+                    <span>{{ category.name }}</span>
+                {% endfor %}
+            </p>
+        <a href="{{ path('project_show', {'id': project.id})}}" class="btn btn-dark"><i class="fa fa-eye"></i>Plus d'informations</a>
+    </div>
+</article>
