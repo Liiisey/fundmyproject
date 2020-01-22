@@ -31,17 +31,13 @@
                             </div>
                         </li>
                         {% if app.user %}
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('easyadmin') }}">Administration</a></li>
                         {% endif %}
                         {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">
-                                <i class="fa fa-sign-in"></i>
-                                Me connecter
-                            </a>
-                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}"><i class="fa fa-sign-in"></i>Me connecter</a>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -19,8 +19,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $goodgirl->setGoal(5500.00);
         $goodgirl->prePersist();
         $goodgirl->addCategory($this->getReference("category-film")); //implements category
-        $goodgirl->addContribution($this->getReference("amount")); //implements contribution
         $goodgirl->setUser($this->getReference("regina"));
+        $this->addReference("Good Girl", $goodgirl); //implements contribution
         $manager->persist($goodgirl);
 
         $lesyeuxdanslebus = new Project();
@@ -31,8 +31,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $lesyeuxdanslebus->setGoal(5500.00);
         $lesyeuxdanslebus->addCategory($this->getReference("category-film")); //implements category
         $lesyeuxdanslebus->addCategory($this->getReference("category-sport")); //implements category
-        $lesyeuxdanslebus->addContribution($this->getReference("amount")); //implements contribution
         $lesyeuxdanslebus->setUser($this->getReference("regina"));
+        $this->addReference("Les yeux dans le bus", $lesyeuxdanslebus); //implements contribution
         $manager->persist($lesyeuxdanslebus);
 
         $dabado = new Project();
@@ -42,8 +42,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $dabado->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $dabado->setGoal(5500.00);
         $dabado->addCategory($this->getReference("category-jeux")); //implements category
-        $dabado->addContribution($this->getReference("amount")); //implements contribution
         $dabado->setUser($this->getReference("regina"));
+        $this->addReference("Dabado", $dabado); //implements contribution
         $manager->persist($dabado);
 
         $doosh = new Project();
@@ -54,8 +54,8 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $doosh->setGoal(5500.00);
         $doosh->addCategory($this->getReference("category-film")); //implements category
         $doosh->addCategory($this->getReference("category-musique")); //implements category
-        $doosh->addContribution($this->getReference("amount")); //implements contribution
         $doosh->setUser($this->getReference("regina"));
+        $this->addReference("DOOSH", $doosh); //implements contribution
         $manager->persist($doosh);
 
 
@@ -70,7 +70,6 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
-            ContributionFixtures::class,
             UserFixtures::class
         ];
     }
