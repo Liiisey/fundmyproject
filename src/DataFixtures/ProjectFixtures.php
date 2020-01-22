@@ -48,7 +48,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
 
         $doosh = new Project();
         $doosh->setName("DOOSH");
-        $doosh->setImage("project4.png");
+        $doosh->setImage("project4.jpg");
         $doosh->setExcerpt("Venez m'accompagner dans mon projet de création musicale avec clip vidéo !");
         $doosh->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $doosh->setGoal(5500.00);

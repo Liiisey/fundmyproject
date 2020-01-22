@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Category;
-use App\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,6 +11,8 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
+     * @param $projectForm
+     * @return \Symfony\Component\HttpFoundation\Response
      */
 
     public function index()
@@ -25,27 +26,12 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
             'projects' => $projects,
             'categories' => $categories,
-            'projectForm' => $projectForm->createView()
-        ]);
-
-        //Afficher l'adresse de l'utilisateur quand il est connecté dans le formulaire
-        $project = new Project();
-        if ($this->getUser()) {
-            $user->setEmail($this->getUser()->getEmail());
-        }
-
-        //Formulaire des projets
-        $projectForm = $this->createForm(ProjectType::class, $project, [
-            'action' => $this->generateUrl('project_new')
         ]);
     }
 
-    public function headerCategories()
-    {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-        return $this->render('default/_categories.html.twig', [
-            'categories' => $categories,
-        ]);
+    public function headerCategories(){
+        $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
+        return $this->render('default/_categories.html.twig',['categories'=>$categories]);
     }
 
     public function headerProjects()

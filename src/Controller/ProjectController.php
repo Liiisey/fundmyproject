@@ -41,7 +41,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('project/new.html.twig', [
