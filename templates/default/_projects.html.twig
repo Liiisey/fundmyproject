@@ -1,5 +1,5 @@
 <div class="projects">
     {% for project in projects  %}
-        <a href=" {{ TODO }}"><i class="fa {{ TODO }}"></i></a>
+        <a href=" {{ path('project_show', {'id': project.id})  }}"><i class="fa {{ project.name }}"></i></a>
     {% endfor %}
 </div>{% extends "base.html.twig" %}

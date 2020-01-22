@@ -5,22 +5,19 @@
 {% block body %}
     <div class="container">
         <h1>{{ category.name }}</h1>
-        <p>Il y a 3 projets dans cette catégorie :</p>
+        <p>Voici les projets dans cette catégorie :</p>
         <div class="row">
             {% for category in categories %}
             <article class="col-4">
                 <div class="card">
                     <img src="uploads/project1.jpg" class="card-img-top" alt="Good Girl">
                     <div class="card-body">
-                        <h5 class="card-title">Good Girl</h5>
+                        <h5 class="card-title">{{ project.name }}</h5>
                         <ul class="badges">
                             <li><a href="{{ path('category_show', {'id': category.id}) }}" class="badge badge-pill badge-primary">Film</a></li>
                         </ul>
                         <p class="card-text">Ce film parle de ...</p>
-                        <a href="{{ asset('uploads/project1.jpg' ~project.image) }}" class="btn btn-primary">
-                            <i class="fa fa-eye"></i>
-                            Voir plus
-                        </a>
+                        <a href="{{ asset('uploads/project1.jpg' ~project.image) }}" class="btn btn-primary"><i class="fa fa-eye"></i>Voir plus</a>
                     </div>
                 </div>
             </article>
@@ -35,10 +32,7 @@
                             <li><a href="{{ path('category_show', {'id': category.id}) }}" class="badge badge-pill badge-primary">Sport</a></li>
                         </ul>
                         <p class="card-text">Revivez la grande épopée de l'équipe de France de football lors du mondial de football 2010.</p>
-                        <a href="project.html" class="btn btn-primary">
-                            <i class="fa fa-eye"></i>
-                            Voir plus
-                        </a>
+                        <a href="project.html" class="btn btn-primary"><i class="fa fa-eye"></i>Voir plus</a>
                     </div>
                 </div>
             </article>

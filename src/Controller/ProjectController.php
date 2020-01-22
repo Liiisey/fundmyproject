@@ -29,6 +29,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -52,6 +54,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}", name="project_show", methods={"GET"})
+     * @param Project $project
+     * @return Response
      */
     public function show(Project $project): Response
     {

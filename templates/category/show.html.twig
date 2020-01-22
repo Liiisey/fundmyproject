@@ -3,24 +3,29 @@
 {% block title %}Category{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_index') }}">back to list</a>
-
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+    <main class="page-content">
+        <div class="container">
+            <h1>Catégorie : {{ category.name }}</h1>
+            <p>Voici les projets de cette catégorie :</p>
+            <div class="row">
+                {% for project in category.projects %}
+                    <article class="col-4">
+                        <div class="card">
+                            <img src="{{ asset('uploads/' ~ project.image) }}" class="card-img-top" alt="{{ project.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ project.name }}</h5>
+                                <ul class="badges">
+                                    {% for category in project.categories %}
+                                        <li><a class="badge badge-pill badge-primary" href="{{ path('category_show' , {'id':category.id}) }}">{{ category.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                <p class="card-text">{{ project.excerpt }}</p>
+                                <a href="{{ path('project_show' , {'id':project.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i>Voir plus</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
 {% endblock %}
