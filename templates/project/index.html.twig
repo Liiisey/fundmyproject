@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Liste des projets{% endblock %}
-
-{% block body %}
+{% block body %}    <!-- Afficher uniquement la liste des projets -->
     <div class="container">
-        <h1>Liste des projets :</h1>
+        <h1>Découvrez l'ensemble de nos projets</h1>
         <div class="row">
-            <article class="col-4">
-                <div class="card">
-                    {% for project in projects  %}
-                        {% include 'project/_thumbnail.html.twig' with {'project': project} %}
-                    {% endfor %}
-                </div>
-            </article>
+            {% for project in projects %}
+                <article class="col-4">
+                    <div class="card">
+                        <img src="{{ asset('uploads/' ~ project.image) }}" class="card-img-top"
+                             alt="{{ project.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">"{{ project.name }}"</h5>
+                            <ul class="badges">
+                                <li><a href="category.html" class="badge badge-pill badge-primary">Film</a></li>
+                            </ul>
+                            <p class="card-text">
+                                {% for category in project.categories %}
+                                    <span>{{ project.description }}</span>
+                                {% endfor %}
+                            </p>
+                            <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary"><i
+                                        class="fa fa-eye"></i>Voir plus</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
         </div>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Précédent</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
-
-    <a href="{{ path('project_new') }}">Create new</a>
 {% endblock %}

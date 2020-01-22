@@ -11,8 +11,6 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
-     * @param $projectForm
-     * @return \Symfony\Component\HttpFoundation\Response
      */
 
     public function index()
@@ -32,13 +30,5 @@ class DefaultController extends AbstractController
     public function headerCategories(){
         $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
         return $this->render('default/_categories.html.twig',['categories'=>$categories]);
-    }
-
-    public function headerProjects()
-    {
-        $projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('default/_projects.html.twig', [
-            'projects' => $projects,
-        ]);
     }
 }

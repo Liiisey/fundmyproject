@@ -3,44 +3,35 @@
 {% block title %}Project{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ project.name }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ project.image }}</td>
-            </tr>
-            <tr>
-                <th>Excerpt</th>
-                <td>{{ project.excerpt }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <th>Goal</th>
-                <td>{{ project.goal }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('project_index') }}">back to list</a>
-
-    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
-
-    {{ include('project/_delete_form.html.twig') }}
+    <main class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <img src="{{ asset('uploads/' ~ project.image) }}" alt="{{ project.name }}">
+                </div>
+                <div class="col-8">
+                    <h1>{{ project.name }}</h1>
+                    <ul class="badges">
+                        {% for category in project.categories %}
+                            <li><a class="badge badge-pill badge-primary" href="{{ path('category_show' , {'id':category.id}) }}">{{ category.name }}</a></li>
+                        {%  endfor %}
+                    </ul>
+                    <p>{{ project.description }}</p>
+                </div>
+            </div>
+            <div class="goal">Objectif : {{ project.goal }}€</div>
+            <div class="progress">
+                <div class="progress-bar bg-info" style="width: 18%">{{ project.goal }}€</div>
+            </div>
+            <form>
+                <div class="form-group">
+                    <input type="number" value="10" placeholder="Montant">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-money"></i>
+                        Je donne !
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 {% endblock %}
