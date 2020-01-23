@@ -29,6 +29,14 @@
                     <button type="submit" class="btn btn-success"><i class="fa fa-money"></i>Je donne !</button>
                 </div>
             </form>
+
+            <ul>
+                {% for contribution in project.contributions  %}
+                    <li> {{ contribution.amount }} ({{ contribution.userId.firstname }})</li>
+                {% endfor %}
+            </ul>
+
+
         </div>
     </main>
 {% endblock %}

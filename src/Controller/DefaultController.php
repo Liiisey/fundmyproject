@@ -17,13 +17,10 @@ class DefaultController extends AbstractController
     {
         //Rechercher les données en base de données
         $projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         //Envoyer les données à la vue
         return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
             'projects' => $projects,
-            'categories' => $categories,
         ]);
     }
 
