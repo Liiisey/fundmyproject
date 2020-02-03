@@ -13,8 +13,6 @@ class ContributionType extends AbstractType
     {
         $builder
             ->add('amount')
-            ->add('project_id')
-            ->add('user_id')
         ;
     }
 

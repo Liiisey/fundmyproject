@@ -15,6 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryController extends AbstractController
 {
+
+    public function dropdown(CategoryRepository $categoryRepository)
+    {
+        return $this->render('category/_dropdown.html.twig', [
+            'categories' => $categoryRepository->findBy([], ['name' => 'ASC']),
+        ]);
+    }
+
     /**
      * @Route("/", name="category_index", methods={"GET"})
      */

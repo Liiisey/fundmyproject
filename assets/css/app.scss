@@ -1,47 +1,44 @@
-// Charger bootstrap
 @import "~bootswatch/dist/superhero/variables";
 @import "~bootstrap/scss/bootstrap";
-// import bootswatch (superhero)
 @import "~bootswatch/dist/superhero/bootswatch";
-// import font awesome 4
 @import "~font-awesome/scss/font-awesome";
 
-//Coller le code CSS
+
 body {
-  padding-top: 100px;
+    padding-top: 100px;
 }
 
 .page-content {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .page-footer {
-  margin-top: 1em;
-  padding: 1em 0;
-  background-color: #4E5D6C;
+    margin-top: 1em;
+    padding: 1em 0;
+    background-color: #4E5D6C;
 }
 
 ul.badges {
-  display: flex;
-  list-style-type: none;
-  padding: 0;
+    display: flex;
+    list-style-type: none;
+    padding: 0;
 }
 
 ul.badges > li {
-  margin-right: 0.5em;
+    margin-right: 0.5em;
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin: 1em 0;
+    display: flex;
+    justify-content: center;
+    margin: 1em 0;
 }
 
 .goal {
-  margin: 0.5em 0;
-  font-size: 1.5em;
+    margin: 0.5em 0;
+    font-size: 1.5em;
 }
 
 .progress {
-  margin-bottom: 1em;
+    margin-bottom: 1em;
 }

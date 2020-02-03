@@ -1,31 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}{{ category.name }}{% endblock %}
 
 {% block body %}
-    <main class="page-content">
-        <div class="container">
-            <h1>Catégorie : {{ category.name }}</h1>
-            <p>Voici les projets de cette catégorie :</p>
-            <div class="row">
-                {% for project in category.projects %}
-                    <article class="col-4">
-                        <div class="card">
-                            <img src="{{ asset('uploads/' ~ project.image) }}" class="card-img-top" alt="{{ project.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ project.name }}</h5>
-                                <ul class="badges">
-                                    {% for category in project.categories %}
-                                        <li><a class="badge badge-pill badge-primary" href="{{ path('category_show' , {'id':category.id}) }}">{{ category.name }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                                <p class="card-text">{{ project.excerpt }}</p>
-                                <a href="{{ path('project_show' , {'id':project.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i>Voir plus</a>
-                            </div>
-                        </div>
-                    </article>
-                {% endfor %}
-            </div>
+
+    <div class="container">
+        <h1>Catégorie : {{ category.name }}</h1>
+        {# TODO: Gérer la pluralization en utilisant le module translation de Symfony #}
+        <p>Il y a {{ category.projects|length }} projets dans cette catégorie :</p>
+        <div class="row">
+            {% for project in category.projects %}
+                <article class="col-4">
+                    {% include 'project/_thumbnail.html.twig' with {'project': project} only %}
+                </article>
+            {% endfor %}
         </div>
-    </main>
+    </div>
+
 {% endblock %}

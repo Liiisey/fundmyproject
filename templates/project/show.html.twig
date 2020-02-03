@@ -1,42 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}{{ project.name }}{% endblock %}
 
 {% block body %}
-    <main class="page-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <img src="{{ asset('uploads/' ~ project.image) }}" alt="{{ project.name }}">
-                </div>
-                <div class="col-8">
-                    <h1>{{ project.name }}</h1>
-                    <ul class="badges">
-                        {% for category in project.categories %}
-                            <li><a class="badge badge-pill badge-primary" href="{{ path('category_show' , {'id':category.id}) }}">{{ category.name }}</a></li>
-                        {%  endfor %}
-                    </ul>
-                    <p>{{ project.description }}</p>
-                </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <img src="{{ asset(project.imageOrPlaceholder) }}" alt="{{ project.name }}" class="img-fluid">
             </div>
-            <div class="goal">Objectif : {{ project.goal }}€</div>
-            <div class="progress">
-                <div class="progress-bar bg-info" style="width: {{ project.amountContributionsPercentage }}%">{{ project.amountContributions }}€</div>
+            <div class="col-8">
+                <h1>{{ project.name }}</h1>
+                <span class="badge badge-pill badge-info">
+                    <i class="fa fa-user"></i>
+                    {{ project.user.fullname }}
+                </span>
+                <ul class="badges">
+                    {% for category in project.categories %}
+                        <li><a href="{{ path('category_show', {'id': category.id}) }}" class="badge badge-pill badge-primary">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <p>{{ project.description }}</p>
             </div>
-            <form>
-                <div class="form-group">
-                    <input type="number" value="10" placeholder="Montant">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-money"></i>Je donne !</button>
-                </div>
-            </form>
-
-            <ul>
-                {% for contribution in project.contributions  %}
-                    <li> {{ contribution.amount }} ({{ contribution.userId.firstname }})</li>
-                {% endfor %}
-            </ul>
-
-
         </div>
-    </main>
+        <div class="goal">Objectif : {{ project.goal }}€</div>
+        <div class="progress">
+            <div class="progress-bar bg-info" style="width: {{ project.amountContributionsPercentage }}%">{{ project.amountContributions }}€</div>
+        </div>
+
+        {% if app.user %}
+            {{ include('contribution/_form.html.twig') }}
+        {% else %}
+            <a href="{{ path('app_login') }}" class="btn btn-primary">
+                <i class="fa fa-sign-in"></i>
+                Se connecter
+            </a>
+        {% endif %}
+
+        <section class="list-group">
+            {% for contribution in project.contributions %}
+                <article class="list-group-item">
+                    <blockquote class="blockquote">
+                        <p>{{ contribution.amount }} €</p>
+                        <footer class="blockquote-footer">{{ contribution.user.fullname }} ({{ contribution.createdAt|date('d-m-Y h:i:s') }})</footer>
+                    </blockquote>
+                </article>
+            {% endfor %}
+        </section>
+    </div>
+
 {% endblock %}

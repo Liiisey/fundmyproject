@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContributionRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Contribution
 {
@@ -23,13 +24,20 @@ class Contribution
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="contributions")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $project_id;
+    private $project;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contributions")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -48,27 +56,48 @@ class Contribution
         return $this;
     }
 
-    public function getProjectId(): ?Project
+    public function getProject(): ?Project
     {
-        return $this->project_id;
+        return $this->project;
     }
 
-    public function setProjectId(?Project $project_id): self
+    public function setProject(?Project $project): self
     {
-        $this->project_id = $project_id;
+        $this->project = $project;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
 }

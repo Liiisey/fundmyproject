@@ -1,27 +1,30 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Project index{% endblock %}
+
 {% block body %}
+
     <div class="container">
-        <h1>Bienvenue sur Fund My Project</h1>
-        <p>Aidez-nous à créer de nouveaux projets chaque jour !</p>
+
+        <h1>Découvrez l'ensemble de nos projets</h1>
         <div class="row">
-            <article class="col-4">
-                <div class="card">
             {% for project in projects %}
-                {% include'project/_thumbnail.html.twig' with {'project': project} %}
+                <article class="col-4">
+                    {% include 'project/_thumbnail.html.twig' with {'project': project} only %}
+                </article>
             {% endfor %}
-                </div>
-            </article>
         </div>
+
+        <nav>
+            <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Précédent</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
     </div>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item disabled"><a class="page-link" href="#">Précédent</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-    <a href="{{ path('project_new') }}">Create new</a>
+
 {% endblock %}

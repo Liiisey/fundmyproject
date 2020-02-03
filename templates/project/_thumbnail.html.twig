@@ -1,12 +1,16 @@
-<article class="project-thumbnail">
-        <img src="{{ asset('uploads/' ~ project.image) }}" alt="{{ project.name }}">
-        <div class="project-details">
-            <h4>{{ project.name }}</h4>
-            <p class="project-categories">
-                {% for category in project.categories  %}
-                    <span>{{ category.name }}</span>
-                {% endfor %}
-            </p>
-        <a href="{{ path('project_show', {'id': project.id})}}" class="btn btn-dark"><i class="fa fa-eye"></i>Plus d'informations</a>
+<div class="card">
+    <img src="{{ asset(project.imageOrPlaceholder) }}" class="card-img-top" alt="{{ project.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ project.name }}</h5>
+        <ul class="badges">
+            {% for category in project.categories %}
+                <li><a href="{{ path('category_show', {'id': category.id}) }}" class="badge badge-pill badge-primary">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <p class="card-text">{{ project.excerpt }}</p>
+        <a href="{{ path('project_show', {'id': project.id}) }}" class="btn btn-primary">
+            <i class="fa fa-eye"></i>
+            Voir plus
+        </a>
     </div>
-</article>
+</div>

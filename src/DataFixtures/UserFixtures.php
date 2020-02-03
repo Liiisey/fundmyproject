@@ -9,11 +9,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+
     private $encoder;
 
     /**
- * UserFixtures constructor.
- */
+     * UserFixtures constructor.
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -22,22 +23,21 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $admin = new User();
-        $admin->setFirstname("John");
-        $admin->setLastname("Doe");
-        $admin->setEmail("john.doe@gmail.com");
-        $admin->setPassword($this->encoder->encodePassword($admin, "rootroot"));
+        $admin->setFirstname("Pierre");
+        $admin->setLastname("Jehan");
+        $admin->setEmail("pierre.jehan@gmail.com");
+        $admin->setPassword($this->encoder->encodePassword($admin, "pjehan"));
         $admin->setRoles(["ROLE_ADMIN"]);
-        $this->setReference("john", $admin); //implements userId
         $manager->persist($admin);
+        $this->addReference("user-admin", $admin);
 
-        $regina = new User();
-        $regina->setFirstname("Regina");
-        $regina->setLastname("Fallange");
-        $regina->setEmail("regina.fallange@gmail.com");
-        $regina->setPassword($this->encoder->encodePassword($regina, "friends"));
-        $regina->setRoles(["ROLE_USER"]);
-        $this->setReference("regina", $regina); //implements userId
-        $manager->persist($regina);
+        $user = new User();
+        $user->setFirstname("John");
+        $user->setLastname("Doe");
+        $user->setEmail("john.doe@gmail.com");
+        $user->setPassword($this->encoder->encodePassword($admin, "john"));
+        $manager->persist($user);
+        $this->addReference("user-user", $user);
 
         $manager->flush();
     }

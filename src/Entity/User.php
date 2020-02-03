@@ -53,7 +53,7 @@ class User implements UserInterface
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="user", orphanRemoval=true)
      */
     private $contributions;
 
@@ -165,9 +165,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-
-
     /**
      * @return Collection|Project[]
      */
@@ -211,7 +208,7 @@ class User implements UserInterface
     {
         if (!$this->contributions->contains($contribution)) {
             $this->contributions[] = $contribution;
-            $contribution->setUserId($this);
+            $contribution->setUser($this);
         }
 
         return $this;
@@ -222,18 +219,22 @@ class User implements UserInterface
         if ($this->contributions->contains($contribution)) {
             $this->contributions->removeElement($contribution);
             // set the owning side to null (unless already changed)
-            if ($contribution->getUserId() === $this) {
-                $contribution->setUserId(null);
+            if ($contribution->getUser() === $this) {
+                $contribution->setUser(null);
             }
         }
 
         return $this;
     }
 
-    public function __toString()
+    public function getFullname()
     {
-        return $this->getUsername();
+        return $this->getFirstname() . " " . $this->getLastname();
     }
 
+    public function __toString()
+    {
+        return $this->getFullname();
+    }
 
 }

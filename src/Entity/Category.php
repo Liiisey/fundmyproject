@@ -62,7 +62,7 @@ class Category
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
-            $project->addCategory($this);
+            $project->addCategorie($this);
         }
 
         return $this;
@@ -72,16 +72,9 @@ class Category
     {
         if ($this->projects->contains($project)) {
             $this->projects->removeElement($project);
-            $project->removeCategory($this);
+            $project->removeCategorie($this);
         }
 
         return $this;
     }
-
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-
 }

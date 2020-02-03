@@ -12,12 +12,9 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $contribution = new Contribution();
-        $contribution->setAmount(1000.00);
-        $contribution->setUserId($this->getReference("regina"));
-        $contribution->setProjectId($this->getReference("Good Girl")); //implements contribution
-        $contribution->setProjectId($this->getReference("Les yeux dans le bus")); //implements contribution
-        $contribution->setProjectId($this->getReference("Dabado")); //implements contribution
-        $contribution->setProjectId($this->getReference("DOOSH")); //implements contribution
+        $contribution->setAmount(20);
+        $contribution->setUser($this->getReference("user-user"));
+        $contribution->setProject($this->getReference("project-1"));
         $manager->persist($contribution);
 
         $manager->flush();
@@ -29,8 +26,8 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            ProjectFixtures::class,
-            UserFixtures::class
+            UserFixtures::class,
+            ProjectFixtures::class
         ];
     }
 }

@@ -45,11 +45,6 @@ class Project
     private $goal;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -61,9 +56,15 @@ class Project
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="project_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="project", orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $contributions;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -91,6 +92,11 @@ class Project
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getImageOrPlaceholder(): string
+    {
+        return empty($this->getImage()) ? "images/placeholder.png" : "uploads/" . $this->getImage();
     }
 
     public function setImage(?string $image): self
@@ -132,18 +138,6 @@ class Project
     public function setGoal(string $goal): self
     {
         $this->goal = $goal;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -196,9 +190,10 @@ class Project
 
     public function getAmountContributions(): float
     {
-        return array_reduce($this->getContributions()->toArray(), function ($total, $contribution) {
+        $totalAmount = array_reduce($this->getContributions()->toArray(), function ($total, $contribution) {
             return $total + $contribution->getAmount();
         });
+        return is_null($totalAmount) ? 0 : $totalAmount;
     }
 
     public function getAmountContributionsPercentage(): float
@@ -210,7 +205,7 @@ class Project
     {
         if (!$this->contributions->contains($contribution)) {
             $this->contributions[] = $contribution;
-            $contribution->setProjectId($this);
+            $contribution->setProject($this);
         }
 
         return $this;
@@ -221,20 +216,37 @@ class Project
         if ($this->contributions->contains($contribution)) {
             $this->contributions->removeElement($contribution);
             // set the owning side to null (unless already changed)
-            if ($contribution->getProjectId() === $this) {
-                $contribution->setProjectId(null);
+            if ($contribution->getProject() === $this) {
+                $contribution->setProject(null);
             }
         }
 
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
 
-    //Pour enregistrer la date et l'heure quand les utilisateurs clique sur "Envoyer" dans le formulaire
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      */
-    public function prePersist() {
-        $this->setCreatedAt(new \DateTime()); //DateTime() : date, heure, minutes de maintenant
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }
