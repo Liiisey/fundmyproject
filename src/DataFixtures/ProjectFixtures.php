@@ -29,6 +29,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $lesyeuxdanslebus->setExcerpt("Revivez la grande épopée de l'équipe de France de football lors du mondial de football 2010.");
         $lesyeuxdanslebus->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $lesyeuxdanslebus->setGoal(5500.00);
+        $lesyeuxdanslebus->prePersist();
         $lesyeuxdanslebus->addCategory($this->getReference("category-film")); //implements category
         $lesyeuxdanslebus->addCategory($this->getReference("category-sport")); //implements category
         $lesyeuxdanslebus->setUser($this->getReference("regina"));
@@ -41,6 +42,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $dabado->setExcerpt("Un jeu fantastique peint à la main. Plongez dans des aventures extra-ordinaires !");
         $dabado->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $dabado->setGoal(5500.00);
+        $dabado->prePersist();
         $dabado->addCategory($this->getReference("category-jeux")); //implements category
         $dabado->setUser($this->getReference("regina"));
         $this->addReference("Dabado", $dabado); //implements contribution
@@ -52,6 +54,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
         $doosh->setExcerpt("Venez m'accompagner dans mon projet de création musicale avec clip vidéo !");
         $doosh->setDescription("Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet at aut blanditiis corporis culpa deleniti dignissimos eos ex facilis inventore iusto laudantium odit, quibusdam rerum, sapiente sequi temporibus.");
         $doosh->setGoal(5500.00);
+        $doosh->prePersist();
         $doosh->addCategory($this->getReference("category-film")); //implements category
         $doosh->addCategory($this->getReference("category-musique")); //implements category
         $doosh->setUser($this->getReference("regina"));

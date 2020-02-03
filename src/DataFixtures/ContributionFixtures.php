@@ -15,6 +15,9 @@ class ContributionFixtures extends Fixture implements DependentFixtureInterface
         $contribution->setAmount(1000.00);
         $contribution->setUserId($this->getReference("regina"));
         $contribution->setProjectId($this->getReference("Good Girl")); //implements contribution
+        $contribution->setProjectId($this->getReference("Les yeux dans le bus")); //implements contribution
+        $contribution->setProjectId($this->getReference("Dabado")); //implements contribution
+        $contribution->setProjectId($this->getReference("DOOSH")); //implements contribution
         $manager->persist($contribution);
 
         $manager->flush();

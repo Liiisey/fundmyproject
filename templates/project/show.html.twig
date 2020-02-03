@@ -21,7 +21,7 @@
             </div>
             <div class="goal">Objectif : {{ project.goal }}€</div>
             <div class="progress">
-                <div class="progress-bar bg-info" style="width: 18%">{{ project.goal }}€</div>
+                <div class="progress-bar bg-info" style="width: {{ project.amountContributionsPercentage }}%">{{ project.amountContributions }}€</div>
             </div>
             <form>
                 <div class="form-group">
